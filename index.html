@@ -404,18 +404,17 @@
                   alt="Cross Training weekly schedule"
                   decoding="async"
                   data-nimg="fill"
-                  class="object-contain"
-                  style="
-                    position: absolute;
-                    height: 100%;
-                    width: 100%;
-                    left: 0;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    color: transparent;
-                  "
+                  class="object-contain absolute h-full w-full left-0 top-0 transition-opacity duration-300"
+                  id="schedule-0"
                   src="/images/schedule-classes.png"
+                />
+                <img
+                  alt="Cross Training weekly schedule"
+                  decoding="async"
+                  data-nimg="fill"
+                  class="object-contain absolute h-full w-full left-0 top-0 opacity-0 transition-opacity duration-300"
+                  id="schedule-1"
+                  src="/images/schedule-cross-training.png"
                 />
               </div>
               <div class="absolute left-2 top-1/2 -translate-y-1/2 z-10">
@@ -474,51 +473,49 @@
                   aria-label="Go to Class Schedule"
                 ></button>
               </div>
-              <script>  
-                // JavaScript to handle the schedule slider
+              <script>
                 const prevButton = document.getElementById("prev-schedule");
                 const nextButton = document.getElementById("next-schedule");
-                const scheduleImage = document.querySelector(
-                  "img[alt='Cross Training weekly schedule']"
-                );
-                const classDot = document.getElementById(
-                  "class-schedule-button"
-                );
-                const crossDot = document.getElementById(
-                  "cross-schedule-button"
-                );
+                const classDot = document.getElementById("class-schedule-button");
+                const crossDot = document.getElementById("cross-schedule-button");
 
                 let currentSchedule = 0;
-                const schedules = [
-                  "/images/schedule-classes.png",
-                  "/images/schedule-cross-training.png",
+                const scheduleImages = [
+                  document.getElementById("schedule-0"),
+                  document.getElementById("schedule-1"),
                 ];
 
+                // Preload images and initialize visibility
+                window.addEventListener("load", () => {
+                  scheduleImages.forEach(img => {
+                    img.loading = "eager";
+                  });
+                  updateSchedule(); // Sync dots and hide/show images
+                });
+
                 function updateSchedule() {
-                  scheduleImage.src = schedules[currentSchedule];
+                  scheduleImages.forEach((img, index) => {
+                    img.classList.toggle("opacity-0", index !== currentSchedule);
+                  });
 
-                  scheduleImage.src = schedules[currentSchedule];
-
-                  // Update dot styles
-                  if (currentSchedule === 0) {
-                    classDot.classList.replace("bg-zinc-600", "bg-primary");
-                    crossDot.classList.replace("bg-primary", "bg-zinc-600");
-                  } else {
-                    classDot.classList.replace("bg-primary", "bg-zinc-600");
-                    crossDot.classList.replace("bg-zinc-600", "bg-primary");
-                  }
+                  // Update dots
+                  classDot.classList.toggle("bg-primary", currentSchedule === 0);
+                  classDot.classList.toggle("bg-zinc-600", currentSchedule !== 0);
+                  crossDot.classList.toggle("bg-primary", currentSchedule === 1);
+                  crossDot.classList.toggle("bg-zinc-600", currentSchedule !== 1);
                 }
 
+                // Event listeners (unchanged)
                 prevButton.addEventListener("click", () => {
-                  currentSchedule =
-                    (currentSchedule - 1 + schedules.length) % schedules.length;
+                  currentSchedule = (currentSchedule - 1 + scheduleImages.length) % scheduleImages.length;
                   updateSchedule();
                 });
 
                 nextButton.addEventListener("click", () => {
-                  currentSchedule = (currentSchedule + 1) % schedules.length;
+                  currentSchedule = (currentSchedule + 1) % scheduleImages.length;
                   updateSchedule();
                 });
+
                 classDot.addEventListener("click", () => {
                   currentSchedule = 0;
                   updateSchedule();
