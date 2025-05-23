@@ -9,6 +9,8 @@
       as="image"
       href="/placeholder.svg?height=400&amp;width=400"
     />
+    <link rel="preload" as="image" href="/images/about-page.jpg" />
+    <link rel="preload" as="image" href="/images/about2.jpg" />
     <link rel="preload" as="image" href="/images/pilates-mat.png" />
     <link rel="preload" as="image" href="/images/schedule-cross-training.png" />
     <link rel="preload" as="image" href="/images/schedule-classes.png" />
@@ -116,7 +118,7 @@
           <div
             class="relative h-[600px] md:h-[700px] w-full overflow-hidden bg-zinc-900"
           >
-            <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative w-full h-full overflow-hidden opacity-0.">
               <img
                 alt="Infinity Gym"
                 loading="lazy"
@@ -124,9 +126,10 @@
                 height="500"
                 decoding="async"
                 data-nimg="1"
-                class="opacity-20 object-contain"
+                
+                class="w-full h-full object-cover object-center"
                 style="color: transparent"
-                src="/images/infinity-logo.png"
+                src="/images/about-page.jpg"
               />
             </div>
           </div>
