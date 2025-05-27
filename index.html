@@ -8,10 +8,11 @@
     <!-- 2. Redirect script early (to avoid loading English content unnecessarily) -->
     <script>
       // Only redirect if not already on the Greek version
-
-      const userLang = navigator.language || navigator.userLanguage;
-      if (userLang.startsWith("el")) {
-        window.location.href = "gr_index.html";
+      if (!window.location.pathname.includes("gr_index.html")) {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang.startsWith("el")) {
+          window.location.href = "gr_index.html";
+        }
       }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
