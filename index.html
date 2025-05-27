@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="alternate" hreflang="el" href="gr_index.html" />
+    <link rel="alternate" hreflang="x-default" href="index.html" />
+
+    <!-- 2. Redirect script early (to avoid loading English content unnecessarily) -->
+    <script>
+      // Only redirect if not already on the Greek version
+
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang.startsWith("el")) {
+        window.location.href = "gr_index.html";
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preload" as="image" href="/images/schedule-cross-training.png" />
     <link
@@ -126,10 +138,11 @@
                 height="500"
                 decoding="async"
                 data-nimg="1"
-                
                 class="w-full h-full object-cover object-center"
                 style="color: transparent"
-                src="/images/about-page_censored.jpg" <!--dsadad-->
+                src="/images/about-page_censored.jpg"
+                <!--dsadad--
+              />
               />
             </div>
           </div>
@@ -310,7 +323,9 @@
             </div>
 
             <!-- Image column -->
-            <div class="relative w-full overflow-hidden rounded-lg aspect-[3/2]">
+            <div
+              class="relative w-full overflow-hidden rounded-lg aspect-[3/2]"
+            >
               <img
                 alt="Infinity Gym logo"
                 loading="lazy"
@@ -395,13 +410,17 @@
             </div>
             <div class="relative w-full mx-auto">
               <div class="text-center mb-4">
-                <h3 id="scheduleText"class="text-xl font-bold text-primary">
+                <h3 id="scheduleText" class="text-xl font-bold text-primary">
                   Gym Schedule
                 </h3>
               </div>
               <div
                 class="relative overflow-hidden rounded-lg bg-black w-full"
-                style="max-width: 1200px; margin: 0 auto; aspect-ratio: 1200/650"
+                style="
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  aspect-ratio: 1200/650;
+                "
               >
                 <img
                   alt="Cross Training weekly schedule"
@@ -479,8 +498,12 @@
               <script>
                 const prevButton = document.getElementById("prev-schedule");
                 const nextButton = document.getElementById("next-schedule");
-                const classDot = document.getElementById("class-schedule-button");
-                const crossDot = document.getElementById("cross-schedule-button");
+                const classDot = document.getElementById(
+                  "class-schedule-button"
+                );
+                const crossDot = document.getElementById(
+                  "cross-schedule-button"
+                );
                 const text = document.getElementById("scheduleText");
 
                 let currentSchedule = 0;
@@ -491,7 +514,7 @@
 
                 // Preload images and initialize visibility
                 window.addEventListener("load", () => {
-                  scheduleImages.forEach(img => {
+                  scheduleImages.forEach((img) => {
                     img.loading = "eager";
                   });
                   updateSchedule(); // Sync dots and hide/show images
@@ -499,14 +522,29 @@
 
                 function updateSchedule() {
                   scheduleImages.forEach((img, index) => {
-                    img.classList.toggle("opacity-0", index !== currentSchedule);
+                    img.classList.toggle(
+                      "opacity-0",
+                      index !== currentSchedule
+                    );
                   });
 
                   // Update dots
-                  classDot.classList.toggle("bg-primary", currentSchedule === 0);
-                  classDot.classList.toggle("bg-zinc-600", currentSchedule !== 0);
-                  crossDot.classList.toggle("bg-primary", currentSchedule === 1);
-                  crossDot.classList.toggle("bg-zinc-600", currentSchedule !== 1);
+                  classDot.classList.toggle(
+                    "bg-primary",
+                    currentSchedule === 0
+                  );
+                  classDot.classList.toggle(
+                    "bg-zinc-600",
+                    currentSchedule !== 0
+                  );
+                  crossDot.classList.toggle(
+                    "bg-primary",
+                    currentSchedule === 1
+                  );
+                  crossDot.classList.toggle(
+                    "bg-zinc-600",
+                    currentSchedule !== 1
+                  );
 
                   text.textContent =
                     currentSchedule === 0
@@ -516,12 +554,15 @@
 
                 // Event listeners (unchanged)
                 prevButton.addEventListener("click", () => {
-                  currentSchedule = (currentSchedule - 1 + scheduleImages.length) % scheduleImages.length;
+                  currentSchedule =
+                    (currentSchedule - 1 + scheduleImages.length) %
+                    scheduleImages.length;
                   updateSchedule();
                 });
 
                 nextButton.addEventListener("click", () => {
-                  currentSchedule = (currentSchedule + 1) % scheduleImages.length;
+                  currentSchedule =
+                    (currentSchedule + 1) % scheduleImages.length;
                   updateSchedule();
                 });
 
