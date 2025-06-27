@@ -497,6 +497,35 @@
                 ></button>
               </div>
               <script>
+                const container = document.getElementById("schedule");
+                let startX = 0;
+                let endX = 0;
+
+                container.addEventListener("touchstart", (e) => {
+                  startX = e.touches[0].clientX;
+                });
+
+                container.addEventListener("touchend", (e) => {
+                  endX = e.changedTouches[0].clientX;
+                  handleSwipe();
+                });
+
+                function handleSwipe() {
+                  const threshold = 50; // Minimum distance to count as swipe
+
+                  if (endX < startX - threshold) {
+                    // Swipe left -> next
+                    currentSchedule =
+                      (currentSchedule + 1) % scheduleImages.length;
+                    updateSchedule();
+                  } else if (endX > startX + threshold) {
+                    // Swipe right -> previous
+                    currentSchedule =
+                      (currentSchedule - 1 + scheduleImages.length) %
+                      scheduleImages.length;
+                    updateSchedule();
+                  }
+                }
                 const prevButton = document.getElementById("prev-schedule");
                 const nextButton = document.getElementById("next-schedule");
                 const classDot = document.getElementById(
@@ -716,7 +745,7 @@
               >
                 <div class="aspect-square w-full overflow-hidden">
                   <img
-                    src="/placeholder.svg?height=400&amp;width=400"
+                    src="images/eirini.png?height=400&amp;width=400"
                     alt="Eirini Antonakaki"
                     class="object-cover w-full h-full transition-transform hover:scale-105 duration-300"
                   />
