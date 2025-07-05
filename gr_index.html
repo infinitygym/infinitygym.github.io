@@ -137,30 +137,161 @@
               >Γίνε Μέλος</a
             >
             <div class="md:hidden">
-              <button
-                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 text-white"
+              <!-- Mobile menu button -->
+            <button
+              id="open-nav"
+              class="inline-flex md:hidden items-center justify-center h-10 w-10 text-white rounded-md hover:bg-accent focus-visible:ring-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-menu h-6 w-6"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-menu h-6 w-6"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12"></line>
-                  <line x1="4" x2="20" y1="6" y2="6"></line>
-                  <line x1="4" x2="20" y1="18" y2="18"></line></svg
-                ><span class="sr-only">Open menu</span>
-              </button>
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+              </svg>
+              <span class="sr-only">Open menu</span>
+            </button>
             </div>
           </div>
         </div>
       </header>
+
+      <!-- Mobile Nav Overlay -->
+      <!-- Mobile Nav -->
+      <!-- Mobile Nav -->
+      <div id="mobile-nav-overlay" style="display: none">
+        <!-- Slide-out Panel -->
+        <div
+          id="mobile-nav"
+          style="
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 75%;
+            max-width: 300px;
+            background: black;
+            padding: 2rem;
+            z-index: 9999;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+          "
+        >
+          <button
+            id="close-nav"
+            style="
+              position: absolute;
+              top: 1rem;
+              right: 1rem;
+              background: none;
+              border: none;
+              font-size: 1.5rem;
+              color: white;
+            "
+          >
+            &times;
+          </button>
+          <nav
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-top: 3rem;
+            "
+          >
+            <a
+              href="#about"
+              onclick="closeMobileNav()"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Ποιοι Είμαστε</a
+            >
+            <a
+              href="#schedule"
+              onclick="closeMobileNav()"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Προγράμματα</a
+            >
+            <a
+              href="#trainers"
+              onclick="closeMobileNav()"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Προπονητές</a
+            >
+            <a
+              href="#disciplines"
+              onclick="closeMobileNav()"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Τμήματα</a
+            >
+            <a
+              href="#contact"
+              onclick="closeMobileNav()"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Επικοινωνία</a
+            >
+          </nav>
+        </div>
+
+        <!-- Backdrop -->
+        <div
+          id="mobile-nav-bg"
+          style="
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+          "
+        ></div>
+      </div>
+
       <main class="flex-1">
         <section class="relative">
           <div class="absolute inset-0 bg-black/70 z-10"></div>
@@ -178,7 +309,6 @@
                 class="w-full h-full object-cover object-center"
                 style="color: transparent"
                 src="/images/about-page_censored.jpg"
-                <!--dsadad--
               />
               />
             </div>
@@ -1834,5 +1964,26 @@
         </div>
       </footer>
     </div>
+    <script>
+      const openBtn = document.getElementById("open-nav");
+      const closeBtn = document.getElementById("close-nav");
+      const nav = document.getElementById("mobile-nav");
+      const overlay = document.getElementById("mobile-nav-overlay");
+      const bg = document.getElementById("mobile-nav-bg");
+
+      function openMobileNav() {
+        overlay.style.display = "block";
+        setTimeout(() => (nav.style.transform = "translateX(0)"), 10);
+      }
+
+      function closeMobileNav() {
+        nav.style.transform = "translateX(100%)";
+        setTimeout(() => (overlay.style.display = "none"), 300);
+      }
+
+      openBtn.addEventListener("click", openMobileNav);
+      closeBtn.addEventListener("click", closeMobileNav);
+      bg.addEventListener("click", closeMobileNav);
+    </script>
   </body>
 </html>
