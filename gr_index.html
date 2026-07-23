@@ -59,12 +59,16 @@
       href="https://www.infinitygym.gr/index.html"
     />
 
+    <!-- Redirect script early (to avoid loading Greek content unnecessarily) -->
     <script>
-      if (!window.location.pathname.includes("index.html")) {
-        const userLang = navigator.language || navigator.userLanguage;
-        if (!userLang.startsWith("el")) {
-          window.location.href = "index.html";
-        }
+      let lang = localStorage.getItem("lang");
+      if (!lang) {
+        const browserPref = navigator.language || navigator.userLanguage || "";
+        lang = browserPref.startsWith("el") ? "greek" : "english";
+        localStorage.setItem("lang", lang);
+      }
+      if (lang !== "greek") {
+        window.location.href = "index.html";
       }
     </script>
     <link rel="preload" as="image" href="/images/schedule-cross-training.webp" />
@@ -138,6 +142,12 @@
               class="text-sm font-medium text-white hover:text-primary transition-colors"
               href="#contact"
               >Επικοινωνία</a
+            >
+            <a
+              class="text-sm font-medium text-white hover:text-primary transition-colors"
+              href="./index.html"
+              onclick="localStorage.setItem('lang','english')"
+              >English</a
             >
           </nav>
           <div class="flex items-center gap-4">
@@ -286,6 +296,20 @@
               onmouseover="this.style.color='#facc15'"
               onmouseout="this.style.color='white'"
               >Επικοινωνία</a
+            >
+            <a
+              href="./index.html"
+              onclick="localStorage.setItem('lang','english')"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >English</a
             >
           </nav>
         </div>

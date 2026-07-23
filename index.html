@@ -54,14 +54,16 @@
       hreflang="x-default"
       href="https://www.infinitygym.gr/index.html"
     />
-    <!-- 2. Redirect script early (to avoid loading English content unnecessarily) -->
+    <!-- Redirect script early (to avoid loading English content unnecessarily) -->
     <script>
-      // Only redirect if not already on the Greek version
-      if (!window.location.pathname.includes("gr_index.html")) {
-        const userLang = navigator.language || navigator.userLanguage;
-        if (userLang.startsWith("el")) {
-          window.location.href = "gr_index.html";
-        }
+      let lang = localStorage.getItem("lang");
+      if (!lang) {
+        const browserPref = navigator.language || navigator.userLanguage || "";
+        lang = browserPref.startsWith("el") ? "greek" : "english";
+        localStorage.setItem("lang", lang);
+      }
+      if (lang !== "english") {
+        window.location.href = "gr_index.html";
       }
     </script>
     <link rel="preload" as="image" href="/images/schedule-cross-training.webp" />
@@ -135,6 +137,12 @@
               class="text-sm font-medium text-white hover:text-primary transition-colors"
               href="#contact"
               >Contact</a
+            >
+            <a
+              class="text-sm font-medium text-white hover:text-primary transition-colors"
+              href="./gr_index.html"
+              onclick="localStorage.setItem('lang','greek')"
+              >Ελληνικά</a
             >
           </nav>
           <div class="flex items-center gap-4">
@@ -283,6 +291,20 @@
               onmouseover="this.style.color='#facc15'"
               onmouseout="this.style.color='white'"
               >Contact Us</a
+            >
+            <a
+              href="./gr_index.html"
+              onclick="localStorage.setItem('lang','greek')"
+              style="
+                color: white;
+                font-size: 1.125rem;
+                font-weight: 600;
+                padding: 0.5rem 0;
+                transition: color 0.3s;
+              "
+              onmouseover="this.style.color='#facc15'"
+              onmouseout="this.style.color='white'"
+              >Ελληνικά</a
             >
           </nav>
         </div>
