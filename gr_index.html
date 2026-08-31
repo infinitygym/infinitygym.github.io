@@ -62,14 +62,10 @@
     <!-- Redirect script early (to avoid loading Greek content unnecessarily) -->
     <script>
       let lang = localStorage.getItem("lang");
-      if (!lang) {
-        const browserPref = navigator.language || navigator.userLanguage || "";
-        lang = browserPref.startsWith("el") ? "greek" : "english";
-        localStorage.setItem("lang", lang);
-      }
-      if (lang !== "greek") {
+
+      if (lang && lang !== "greek")
         window.location.href = "index.html";
-      }
+
     </script>
     <link rel="preload" as="image" href="/images/schedule-cross-training.webp" />
     <link
